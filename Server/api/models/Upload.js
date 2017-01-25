@@ -19,6 +19,12 @@ module.exports = {
   	},
   	img_arr : {
   		type : 'array'
+  	},
+  	sem : {
+  		type : 'string'
+  	},
+  	year : {
+  		type : 'int'
   	}
   }
 };
