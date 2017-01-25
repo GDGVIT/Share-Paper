@@ -69,7 +69,7 @@ module.exports = {
 					};
 					res.status(200).json(reply);
 				}
-				if(!paper) {
+				if(!paper || paper.length < 1) {
 					var reply = {
 						'status' : 104,
 						'message' : 'Couldn\'t not find any paper'
