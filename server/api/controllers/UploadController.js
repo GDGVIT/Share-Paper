@@ -23,7 +23,7 @@ module.exports = {
 		
 		req.file('image1')
 		.upload({
-			dirname : '../../assets/images/' + c_cd + "_" + slot,
+			dirname : '../../uploads/' + c_cd + "_" + slot,
 			// saveAs : 'avatar',
 			// maxBytes : 1000000 
 		}, function whenDone(err, uploadedFiles) {
