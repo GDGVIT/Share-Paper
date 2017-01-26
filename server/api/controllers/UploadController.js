@@ -34,6 +34,7 @@ module.exports = {
 					'message' : 'error while uploading'
 				};
 				res.status(200).json(reply);
+				return;
 			} else {
 				Upload.create({
 					'c_cd' : c_cd,
@@ -41,8 +42,9 @@ module.exports = {
 					'no_of_images' : no_of_images,
 					'sem' : sem,
 					'year' : year,
-					'image_arr' : avatar_url
+					'img_arr' : avatar_url
 				}, function uploadedPaper(err, paper) {
+					console.log("inside uploadedPaper")
 					if (err) {
 						var reply = {
 							'status' : 101,
