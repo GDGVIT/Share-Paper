@@ -17,7 +17,7 @@ module.exports = {
 
 		// res.setTimeout(0);
 		
-		req.file('image1')
+		req.file('image')
 		.upload({
 			dirname : '../../.tmp/public/uploads/' + c_cd + "_" + slot,
 			// saveAs : 'avatar',
