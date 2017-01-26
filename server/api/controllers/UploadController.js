@@ -15,14 +15,12 @@ module.exports = {
 		var sem = req.param('sem');
 		var year = req.param('year');
 		console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
-		var file = req.file('image1');
-		console.log(file);
 		var avatar_url = '/'+ c_cd + "_" + slot;
 		console.log(avatar_url);
 
 		// res.setTimeout(0);
 		
-		file
+		req.file('image1')
 		.upload({
 			dirname : '../../.tmp/public/uploads/' + c_cd + "_" + slot,
 			// saveAs : 'avatar',
@@ -34,13 +32,13 @@ module.exports = {
 					'status' : 100,
 					'message' : 'error while uploading'
 				};
-				console.log(" err method " + err)
+				console.log("error while uploading" + err)
 				res.status(200).json(reply);
 				// return;
 			} else {
 				// console.log("Inside method create");
 				// console.log("img_arr = " + avatar_url);
-		
+				console.log(uploadedFiles);
 				Upload.create({
 					'c_cd' : c_cd,
 					'slot' : slot,
