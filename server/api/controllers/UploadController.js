@@ -38,7 +38,7 @@ module.exports = {
 				// return;
 			} else {
 				console.log("Inside method create");
-				console.log("img_arr = " + img_arr);
+				console.log("img_arr = " + avatar_url);
 		
 				Upload.create({
 					'c_cd' : c_cd,
