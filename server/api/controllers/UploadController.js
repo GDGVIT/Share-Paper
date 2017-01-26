@@ -73,13 +73,13 @@ module.exports = {
 	},
 
 	'view' : function(req, res) {
-		if(req.param('c_cd') && req.param('slot') && req.param('sem')) {
+		if(req.param('c_cd') && req.param('sem') && req.param('year')) {
 			var c_cd = req.param('c_cd');
-			var slot = req.param('slot');
+			var year = req.param('year');
 			var sem = req.param('sem');
-			console.log('c_cd = ' + c_cd + "\nslot = " + slot)
+			console.log('c_cd = ' + c_cd + "\nsem = " + sem + " year = " + year)
 			
-			Upload.find({'c_cd' : c_cd, 'slot' : slot, 'sem' : sem}).limit(5).exec(function foundPaper(err, paper) {
+			Upload.find({'c_cd' : c_cd, 'sem' : sem, 'year' : year}).limit(15).exec(function foundPaper(err, paper) {
 				if(err) {
 					var reply = {
 						'status' : 103,
