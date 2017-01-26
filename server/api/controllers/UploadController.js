@@ -23,6 +23,11 @@ module.exports = {
 		  // });
 		 else {
 		 	console.log(uploadedFiles);
+			var reply = {
+				'status' : 100,
+				'message' : 'Sent'
+			}; 
+			res.status(200).json(reply);
 		 }
 		});
 		// res.status(200).json(reply);
