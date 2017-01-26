@@ -38,7 +38,7 @@ module.exports = {
 				'status' : 100,
 				'message' : 'Sent'
 			}; 
-			res.status(200).json(reply);
+			// res.status(200).json(reply);
 		 }
 		});
 
@@ -56,9 +56,10 @@ module.exports = {
 				'status' : 100,
 				'message' : 'Sent'
 			}; 
-			res.status(200).json(reply);
+			
 		 }
 		});
+		res.status(200).json(reply);
 		// res.status(200).json(reply);
 		// if(req.param('c_cd') && req.param('slot') && req.param('no_of_images') && req.param('img_arr') && req.param('sem') && req.param('year')) {
 		// 	var c_cd = req.param('c_cd');
