@@ -9,18 +9,9 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 
-var fs = require('fs');
-var path = require('path');
 module.exports.bootstrap = function(cb) {
 
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  var imageSource = path.join(process.cwd(), 'uploads/')
-    , imageDest = path.join(process.cwd(), '.tmp/public/images/');
-
-  fs.symlink(imageSource, imageDest, function(err) {
-    cb(err);
-	});
-  
   cb();
 };
