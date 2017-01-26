@@ -14,8 +14,7 @@ module.exports = {
 		// var img_arr = req.param('img_arr');
 		var sem = req.param('sem');
 		var year = req.param('year');
-		var avatar_url = require('util').format("%s/%s/%s/%s/%s", sails.getBaseUrl(), c_cd, slot, sem, year);
-		
+		var avatar_url = '/'+ c_cd + "_" + slot;
 		console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
 		console.log(avatar_url);
 		
