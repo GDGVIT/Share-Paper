@@ -33,9 +33,13 @@ module.exports = {
 					'status' : 100,
 					'message' : 'error while uploading'
 				};
+				console.log(" err method " + err)
 				res.status(200).json(reply);
-				return;
+				// return;
 			} else {
+				console.log("Inside method create");
+				console.log("img_arr = " + img_arr);
+		
 				Upload.create({
 					'c_cd' : c_cd,
 					'slot' : slot,
@@ -46,13 +50,15 @@ module.exports = {
 				}, function uploadedPaper(err, paper) {
 					console.log("inside uploadedPaper")
 					if (err) {
+						console.log("error in uploadedPaper");
 						var reply = {
 							'status' : 101,
 							'message' : 'Error while updating db'
 						};
 						res.status(200).json(reply);
-						return;
+						// return;
 					} else {
+						console.log("La st in here");
 						var reply = {
 							'status' : 102,
 							'message' : 'Successfully uploaded the files',
@@ -64,7 +70,7 @@ module.exports = {
  						};
  						console.log(reply);
  						res.status(200).json(reply);
- 						return;
+ 						// return;
 					}
 				});
 			}
