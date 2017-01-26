@@ -13,6 +13,7 @@ module.exports = {
 		// 	'status' : 100,
 		// 	'message' : 'Sent'
 		// };
+		console.log(req.file('image'));
 		req.file('image').upload(function (err, uploadedFiles){
 		if (err) {
 			console.log(err);
