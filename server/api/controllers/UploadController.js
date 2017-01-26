@@ -37,6 +37,7 @@ module.exports = {
 				// console.log("img_arr = " + avatar_url);
 				// console.log(uploadedFiles);
 				var image = uploadedFiles[0];
+				console.log(uploadedFiles.length + " length of total no of images");
 				var fd = image.fd;
 				var index = fd.lastIndexOf('/');
 				var image_url = "/uploads/" + c_cd + "_" + slot + "/" + fd.substring(index+1 , fd.length);
