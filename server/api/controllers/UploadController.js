@@ -11,7 +11,6 @@ module.exports = {
 		var c_cd = req.param('c_cd');
 		var slot = req.param('slot');
 		var no_of_images = req.param('no_of_images');
-		// var img_arr = req.param('img_arr');
 		var sem = req.param('sem');
 		var year = req.param('year');
 		console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
@@ -22,7 +21,7 @@ module.exports = {
 		.upload({
 			dirname : '../../.tmp/public/uploads/' + c_cd + "_" + slot,
 			// saveAs : 'avatar',
-			// maxBytes : 1000000 
+			maxBytes : 1000000 
 		}, function whenDone(err, uploadedFiles) {
 			// console.log("inside upload method")
 			if(err) {
@@ -40,7 +39,7 @@ module.exports = {
 				var image = uploadedFiles[0];
 				var fd = image.fd;
 				var index = fd.lastIndexOf('/');
-				var image_url = fd.substring(index+1 , fd.length);
+				var image_url = "/uploads/" + c_cd + "_" + slot + "/" + fd.substring(index+1 , fd.length);
 				Upload.create({
 					'c_cd' : c_cd,
 					'slot' : slot,
@@ -67,7 +66,7 @@ module.exports = {
 							'course_code' : c_cd,
 							'sem' : sem,
 							'year' : year,
-							'images_url' : avatar_url
+							'images_url' : image_url
  						};
  						console.log(reply);
  						res.status(200).json(reply);
@@ -94,72 +93,6 @@ module.exports = {
 		// 	// res.status(200).json(reply);
 		//  }
 		// });
-
-		// req.file('image2').upload(function (err, uploadedFiles){
-		// if (err) {
-		// 	console.log(err);
-		// }
-		//   // return res.json({
-		//   //   message: files.length + ' file(s) uploaded successfully!',
-		//   //   files: files
-		//   // });
-		//  else {
-		//  	console.log(uploadedFiles);
-		// 	var reply = {
-		// 		'status' : 100,
-		// 		'message' : 'Sent'
-		// 	}; 
-			
-		//  }
-		// });
-		// res.status(200).json(reply);
-		// res.status(200).json(reply);
-		// if(req.param('c_cd') && req.param('slot') && req.param('no_of_images') && req.param('img_arr') && req.param('sem') && req.param('year')) {
-		// 	var c_cd = req.param('c_cd');
-		// 	var slot = req.param('slot');
-		// 	var no_of_images = req.param('no_of_images');
-		// 	var img_arr = req.param('img_arr');
-		// 	var sem = req.param('sem');
-		// 	var year = req.param('year');
-		// 	console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images + "\nimg_arr = " + img_arr);
-		// 	Upload.create({
-		// 		'c_cd' : c_cd,
-		// 		'slot' : slot,
-		// 		'no_of_images' : no_of_images,
-		// 		'img_arr' : img_arr,
-		// 		'sem' : sem,
-		// 		'year' : year
-		// 	}, function uploadedPaper(err, paper) {
-		// 			if(err) {
-		// 				var reply = {
-		// 					'status' : 100,
-		// 					'message' : 'An error occured while uploading the paper' 
-		// 				};
-		// 				res.status(200).json(reply);
-		// 				return;
-		// 			} else {
-		// 				var token = req.session.id;
-		// 				var reply = {
-		// 					'status' : 101,
-		// 					'message' : 'Successfully uploaded',
-		// 					'c_cd' : paper.c_cd,
-		// 					'slot' : paper.slot,
-		// 					'no_of_images' : paper.no_of_images,
-		// 					'img_arr' : img_arr,
-		// 					'sem' : sem,
-		// 					'year' : year
-		// 				};
-		// 				res.status(200).json(reply);
-		// 				return;
-		// 			}
-		// 		});
-		// } else {
-		// 	var reply = {
-		// 		'status' : 102,
-		// 		'message' : 'All the parameters were not received'
-		// 	};
-		// 	res.status(200).json(reply);
-		// }
 	},
 
 	'view' : function(req, res) {
