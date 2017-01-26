@@ -28,7 +28,7 @@ module.exports = {
 				console.log("error while uploading" + err)
 				res.status(200).json(reply);
 			} else {
-				console.log(uploadedFiles.length + " length of total no of images");
+				// console.log(uploadedFiles.length + " length of total no of images");
 				var image_url = [];
 
 				_.each(uploadedFiles, function(image_i) {
@@ -36,7 +36,7 @@ module.exports = {
 					var fd = image.fd;
 					var index = fd.lastIndexOf('/');
 					image_url.push("/uploads/" + c_cd + "_" + slot + "/" + fd.substring(index+1 , fd.length));
-					console.log(image_url)
+					// console.log(image_url)
 				});
 
 				Upload.create({
@@ -78,6 +78,7 @@ module.exports = {
 			var slot = req.param('slot');
 			var sem = req.param('sem');
 			console.log('c_cd = ' + c_cd + "\nslot = " + slot)
+			
 			Upload.find({'c_cd' : c_cd, 'slot' : slot, 'sem' : sem}).limit(5).exec(function foundPaper(err, paper) {
 				if(err) {
 					var reply = {
