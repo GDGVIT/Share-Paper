@@ -13,9 +13,36 @@ module.exports = {
 		// 	'status' : 100,
 		// 	'message' : 'Sent'
 		// };
-		console.log(req.file('image'));
-		console.log(req.param('slot'));
-		req.file('image').upload(function (err, uploadedFiles){
+		// console.log(req.file('image'));
+		// console.log(req.param('slot'));
+		var c_cd = req.param('c_cd');
+		var slot = req.param('slot');
+		var no_of_images = req.param('no_of_images');
+		// var img_arr = req.param('img_arr');
+		var sem = req.param('sem');
+		var year = req.param('year');
+		console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
+	
+
+		req.file('image1').upload(function (err, uploadedFiles){
+		if (err) {
+			console.log(err);
+		}
+		  // return res.json({
+		  //   message: files.length + ' file(s) uploaded successfully!',
+		  //   files: files
+		  // });
+		 else {
+		 	console.log(uploadedFiles);
+			var reply = {
+				'status' : 100,
+				'message' : 'Sent'
+			}; 
+			res.status(200).json(reply);
+		 }
+		});
+
+		req.file('image2').upload(function (err, uploadedFiles){
 		if (err) {
 			console.log(err);
 		}
