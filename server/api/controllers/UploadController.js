@@ -7,13 +7,25 @@
 
 module.exports = {
 	'upload' : function(req, res) {
-		var image = req.param('image');
-		console.log(image);
-		var reply = {
-			'status' : 100,
-			'message' : 'Sent'
-		};
-		res.status(200).json(reply);
+		// var image = req.file('image');
+		// console.log(image);
+		// var reply = {
+		// 	'status' : 100,
+		// 	'message' : 'Sent'
+		// };
+		req.file('image').upload(function (err, uploadedFiles){
+		if (err) {
+			console.log(err);
+		}
+		  // return res.json({
+		  //   message: files.length + ' file(s) uploaded successfully!',
+		  //   files: files
+		  // });
+		 else {
+		 	console.log(uploadedFiles);
+		 }
+		});
+		// res.status(200).json(reply);
 		// if(req.param('c_cd') && req.param('slot') && req.param('no_of_images') && req.param('img_arr') && req.param('sem') && req.param('year')) {
 		// 	var c_cd = req.param('c_cd');
 		// 	var slot = req.param('slot');
