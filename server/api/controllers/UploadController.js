@@ -14,6 +14,7 @@ module.exports = {
 		// 	'message' : 'Sent'
 		// };
 		console.log(req.file('image'));
+		console.log(req.param('slot'));
 		req.file('image').upload(function (err, uploadedFiles){
 		if (err) {
 			console.log(err);
