@@ -21,7 +21,7 @@ module.exports = {
 		.upload({
 			dirname : '../../.tmp/public/uploads/' + c_cd + "_" + slot,
 			// saveAs : 'avatar',
-			maxBytes : 1000000 
+			maxBytes : 5000000 
 		}, function whenDone(err, uploadedFiles) {
 			// console.log("inside upload method")
 			if(err) {
