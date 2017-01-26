@@ -12,18 +12,14 @@ module.exports = {
 		var slot = req.param('slot');
 		var no_of_images = req.param('no_of_images');
 		var sem = req.param('sem');
-		var year = req.param('year');
-		console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
-
-		// res.setTimeout(0);
+		var year = req.param('year');	
+		// console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
 		
 		req.file('image')
 		.upload({
 			dirname : '../../.tmp/public/uploads/' + c_cd + "_" + slot,
-			// saveAs : 'avatar',
-			maxBytes : 5000000 
+			maxBytes : 25000000 
 		}, function whenDone(err, uploadedFiles) {
-			// console.log("inside upload method")
 			if(err) {
 				var reply = {
 					'status' : 100,
@@ -31,26 +27,17 @@ module.exports = {
 				};
 				console.log("error while uploading" + err)
 				res.status(200).json(reply);
-				// return;
 			} else {
-				// console.log("Inside method create");
-				// console.log("img_arr = " + avatar_url);
-				// console.log(uploadedFiles);
-				
 				console.log(uploadedFiles.length + " length of total no of images");
 				var image_url = [];
+
 				_.each(uploadedFiles, function(image_i) {
-					// console.log(image_i);
 					var image = image_i;
 					var fd = image.fd;
 					var index = fd.lastIndexOf('/');
 					image_url.push("/uploads/" + c_cd + "_" + slot + "/" + fd.substring(index+1 , fd.length));
 					console.log(image_url)
 				});
-				// var image = uploadedFiles[0];
-				// var fd = image.fd;
-				// var index = fd.lastIndexOf('/');
-				// var image_url = "/uploads/" + c_cd + "_" + slot + "/" + fd.substring(index+1 , fd.length);
 
 				Upload.create({
 					'c_cd' : c_cd,
@@ -60,7 +47,6 @@ module.exports = {
 					'year' : year,
 					'img_arr' : image_url
 				}, function uploadedPaper(err, paper) {
-					// console.log("inside uploadedPaper")
 					if (err) {
 						console.log("error in uploadedPaper");
 						var reply = {
@@ -68,9 +54,7 @@ module.exports = {
 							'message' : 'Error while updating db'
 						};
 						res.status(200).json(reply);
-						// return;
 					} else {
-						// console.log("La st in here");
 						var reply = {
 							'status' : 102,
 							'message' : 'Successfully uploaded the files',
@@ -82,29 +66,10 @@ module.exports = {
  						};
  						console.log(reply);
  						res.status(200).json(reply);
- 						// return;
 					}
 				});
 			}
 		});
-
-		// req.file('image1').upload(function (err, uploadedFiles){
-		// if (err) {
-		// 	console.log(err);
-		// }
-		//   // return res.json({
-		//   //   message: files.length + ' file(s) uploaded successfully!',
-		//   //   files: files
-		//   // });
-		//  else {
-		//  	console.log(uploadedFiles);
-		// 	var reply = {
-		// 		'status' : 100,
-		// 		'message' : 'Sent'
-		// 	}; 
-		// 	// res.status(200).json(reply);
-		//  }
-		// });
 	},
 
 	'view' : function(req, res) {
