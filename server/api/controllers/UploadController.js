@@ -7,59 +7,102 @@
 
 module.exports = {
 	'upload' : function(req, res) {
-		// var image = req.file('image');
-		// console.log(image);
-		// var reply = {
-		// 	'status' : 100,
-		// 	'message' : 'Sent'
-		// };
-		// console.log(req.file('image'));
-		// console.log(req.param('slot'));
+
 		var c_cd = req.param('c_cd');
 		var slot = req.param('slot');
 		var no_of_images = req.param('no_of_images');
 		// var img_arr = req.param('img_arr');
 		var sem = req.param('sem');
 		var year = req.param('year');
+		var avatar_url = require('util').format("%s/%s/%s/%s/%s", sails.getBaseUrl(), c_cd, slot, sem, year);
+		
 		console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
-	
-
-		req.file('image1').upload(function (err, uploadedFiles){
-		if (err) {
-			console.log(err);
-		}
-		  // return res.json({
-		  //   message: files.length + ' file(s) uploaded successfully!',
-		  //   files: files
-		  // });
-		 else {
-		 	console.log(uploadedFiles);
-			var reply = {
-				'status' : 100,
-				'message' : 'Sent'
-			}; 
-			// res.status(200).json(reply);
-		 }
+		console.log(avatar_url);
+		
+		res.setTimeout(0);
+		
+		req.file('image1')
+		.upload({
+			dirname : '../../../../assets/images/' + c_cd + "_" + slot,
+			saveAs : 'avatar',
+			maxBytes : 1000000 
+		}, function whenDone(err, uploadedFiles) {
+			if(err) {
+				var reply = {
+					'status' : 100,
+					'message' : 'error while uploading'
+				};
+				res.status(200).json(reply);
+			} else {
+				Upload.create({
+					'c_cd' : c_cd,
+					'slot' : slot,
+					'no_of_images' : no_of_images,
+					'sem' : sem,
+					'year' : year,
+					'image_arr' : avatar_url
+				}, function uploadedPaper(err, paper) {
+					if (err) {
+						var reply = {
+							'status' : 101,
+							'message' : 'Error while updating db'
+						};
+						res.status(200).json(reply);
+						return;
+					} else {
+						var reply = {
+							'status' : 102,
+							'message' : 'Successfully uploaded the files',
+							'slot' : slot,
+							'course_code' : c_cd,
+							'sem' : sem,
+							'year' : year,
+							'images_url' : avatar_url
+ 						};
+ 						console.log(reply);
+ 						res.status(200).json(reply);
+ 						return;
+					}
+				});
+			}
 		});
 
-		req.file('image2').upload(function (err, uploadedFiles){
-		if (err) {
-			console.log(err);
-		}
-		  // return res.json({
-		  //   message: files.length + ' file(s) uploaded successfully!',
-		  //   files: files
-		  // });
-		 else {
-		 	console.log(uploadedFiles);
-			var reply = {
-				'status' : 100,
-				'message' : 'Sent'
-			}; 
+		// req.file('image1').upload(function (err, uploadedFiles){
+		// if (err) {
+		// 	console.log(err);
+		// }
+		//   // return res.json({
+		//   //   message: files.length + ' file(s) uploaded successfully!',
+		//   //   files: files
+		//   // });
+		//  else {
+		//  	console.log(uploadedFiles);
+		// 	var reply = {
+		// 		'status' : 100,
+		// 		'message' : 'Sent'
+		// 	}; 
+		// 	// res.status(200).json(reply);
+		//  }
+		// });
+
+		// req.file('image2').upload(function (err, uploadedFiles){
+		// if (err) {
+		// 	console.log(err);
+		// }
+		//   // return res.json({
+		//   //   message: files.length + ' file(s) uploaded successfully!',
+		//   //   files: files
+		//   // });
+		//  else {
+		//  	console.log(uploadedFiles);
+		// 	var reply = {
+		// 		'status' : 100,
+		// 		'message' : 'Sent'
+		// 	}; 
 			
-		 }
-		});
-		res.status(200).json(reply);
+		//  }
+		// });
+		// res.status(200).json(reply);
 		// res.status(200).json(reply);
 		// if(req.param('c_cd') && req.param('slot') && req.param('no_of_images') && req.param('img_arr') && req.param('sem') && req.param('year')) {
 		// 	var c_cd = req.param('c_cd');
