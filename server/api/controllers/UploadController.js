@@ -19,14 +19,15 @@ module.exports = {
 		console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
 		console.log(avatar_url);
 		
-		res.setTimeout(0);
+		// res.setTimeout(0);
 		
 		req.file('image1')
 		.upload({
-			dirname : '../../../../assets/images/' + c_cd + "_" + slot,
-			saveAs : 'avatar',
-			maxBytes : 1000000 
+			dirname : '../../assets/images/' + c_cd + "_" + slot,
+			// saveAs : 'avatar',
+			// maxBytes : 1000000 
 		}, function whenDone(err, uploadedFiles) {
+			console.log("inside upload method")
 			if(err) {
 				var reply = {
 					'status' : 100,
