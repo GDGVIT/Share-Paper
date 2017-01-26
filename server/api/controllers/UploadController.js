@@ -14,19 +14,21 @@ module.exports = {
 		// var img_arr = req.param('img_arr');
 		var sem = req.param('sem');
 		var year = req.param('year');
-		var avatar_url = '/'+ c_cd + "_" + slot;
 		console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
+		var file = req.file('image1');
+		console.log(file);
+		var avatar_url = '/'+ c_cd + "_" + slot;
 		console.log(avatar_url);
-		
+
 		// res.setTimeout(0);
 		
-		req.file('image1')
+		file
 		.upload({
 			dirname : '../../.tmp/public/uploads/' + c_cd + "_" + slot,
 			// saveAs : 'avatar',
 			// maxBytes : 1000000 
 		}, function whenDone(err, uploadedFiles) {
-			console.log("inside upload method")
+			// console.log("inside upload method")
 			if(err) {
 				var reply = {
 					'status' : 100,
@@ -36,8 +38,8 @@ module.exports = {
 				res.status(200).json(reply);
 				// return;
 			} else {
-				console.log("Inside method create");
-				console.log("img_arr = " + avatar_url);
+				// console.log("Inside method create");
+				// console.log("img_arr = " + avatar_url);
 		
 				Upload.create({
 					'c_cd' : c_cd,
@@ -47,7 +49,7 @@ module.exports = {
 					'year' : year,
 					'img_arr' : avatar_url
 				}, function uploadedPaper(err, paper) {
-					console.log("inside uploadedPaper")
+					// console.log("inside uploadedPaper")
 					if (err) {
 						console.log("error in uploadedPaper");
 						var reply = {
@@ -57,7 +59,7 @@ module.exports = {
 						res.status(200).json(reply);
 						// return;
 					} else {
-						console.log("La st in here");
+						// console.log("La st in here");
 						var reply = {
 							'status' : 102,
 							'message' : 'Successfully uploaded the files',
