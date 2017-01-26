@@ -38,7 +38,7 @@ module.exports = {
 				// console.log(uploadedFiles);
 				
 				console.log(uploadedFiles.length + " length of total no of images");
-				var image_url = "";
+				var image_url = [];
 				_.each(uploadedFiles, function(image_i) {
 					// console.log(image_i);
 					var image = image_i;
