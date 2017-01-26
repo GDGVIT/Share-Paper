@@ -40,13 +40,13 @@ module.exports = {
 				console.log(uploadedFiles.length + " length of total no of images");
 				var image_url = "";
 				_.each(uploadedFiles, function(image_i) {
-					console.log(image_i);
+					// console.log(image_i);
 					var image = image_i;
 					var fd = image.fd;
 					var index = fd.lastIndexOf('/');
-					image_url = image_url + "," + "/uploads/" + c_cd + "_" + slot + "/" + fd.substring(index+1 , fd.length);
+					image_url.push("/uploads/" + c_cd + "_" + slot + "/" + fd.substring(index+1 , fd.length));
 					console.log(image_url)
-				})
+				});
 				// var image = uploadedFiles[0];
 				// var fd = image.fd;
 				// var index = fd.lastIndexOf('/');
