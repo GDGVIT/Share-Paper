@@ -15,8 +15,6 @@ module.exports = {
 		var sem = req.param('sem');
 		var year = req.param('year');
 		console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
-		var avatar_url = '/'+ c_cd + "_" + slot;
-		console.log(avatar_url);
 
 		// res.setTimeout(0);
 		
@@ -38,14 +36,18 @@ module.exports = {
 			} else {
 				// console.log("Inside method create");
 				// console.log("img_arr = " + avatar_url);
-				console.log(uploadedFiles);
+				// console.log(uploadedFiles);
+				var image = uploadedFiles[0];
+				var fd = image.fd;
+				var index = fd.lastIndexOf('/');
+				var image_url = fd.substring(index+1 , fd.length);
 				Upload.create({
 					'c_cd' : c_cd,
 					'slot' : slot,
 					'no_of_images' : no_of_images,
 					'sem' : sem,
 					'year' : year,
-					'img_arr' : avatar_url
+					'img_arr' : image_url
 				}, function uploadedPaper(err, paper) {
 					// console.log("inside uploadedPaper")
 					if (err) {
