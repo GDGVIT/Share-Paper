@@ -5,8 +5,8 @@ This is an initiative taken by GDG VIT so that students can share their CATS,TEE
 
 ## Endpoints : 
 
-    /upload/view?c_cd=ss&slot=aa&sem=fall #to return at max 5 papers
-    /upload/upload?c_cd=ss&slot=aa&no_of_images=7&img_arr=3&sem=fall&year=2017 #to upload
+    /upload/view?c_cd=a&sem=winter&year=2017 #to return at max 15 papers
+    /upload/upload?c_cd=ss&slot=aa&no_of_images=7&sem=fall&year=2017 #to upload also the images files using the same name as 'image'
     
 ## Framework : 
     > SailsJS. (Sailsjs v - 0.12.4, Node : v6.1.0, npm : 3.8.6)
