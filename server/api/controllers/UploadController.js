@@ -7,14 +7,12 @@
 
 module.exports = {
 	'upload' : function(req, res) {
-
 		var c_cd = req.param('c_cd');
 		var slot = req.param('slot');
 		var no_of_images = req.param('no_of_images');
 		var sem = req.param('sem');
 		var year = req.param('year');
 		var regno = req.param('regno');	
-		// console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
 		
 		req.file('image')
 		.upload({
@@ -112,6 +110,32 @@ module.exports = {
 			};
 			res.status(200).json(reply);
 		}
+	},
+
+	'viewByRegno' : function(req, res) {
+		var regno = req.param('regno');
+		Upload.find({'regno' : regno}).exec(function foundPapers(err, papers) {
+			if(err || !papers) {
+				var reply = {
+					'status' : 107,
+					'message' : 'Error occured while fetching the papers'
+				};
+				res.status(200).json(reply);
+			} else if(papers.length < 1) {
+				var reply = {
+					'status' : 108,
+					'message' : 'No papers have been uploaded by you yet.'
+				};
+				res.status(200).json(reply);
+			} else {
+				var reply = {
+					'status' : 109,
+					'message' : 'All papers fetched successfully',
+					'papers' : papers
+				};
+				res.status(200).json(reply);
+			}
+		});
 	}
 };
 

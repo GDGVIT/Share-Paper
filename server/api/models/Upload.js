@@ -8,6 +8,9 @@
 module.exports = {
 
   attributes: {
+    regno : {
+      type : 'string'
+    },
   	c_cd : {
   		type : 'string'
   	},
