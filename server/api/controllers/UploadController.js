@@ -12,7 +12,8 @@ module.exports = {
 		var slot = req.param('slot');
 		var no_of_images = req.param('no_of_images');
 		var sem = req.param('sem');
-		var year = req.param('year');	
+		var year = req.param('year');
+		var regno = req.param('regno');	
 		// console.log( "c_cd =" + c_cd + "\nslot = " + slot + "\nno_of_images = " + no_of_images);
 		
 		req.file('image')
@@ -45,6 +46,7 @@ module.exports = {
 					'no_of_images' : no_of_images,
 					'sem' : sem,
 					'year' : year,
+					'regno' : regno,
 					'img_arr' : image_url
 				}, function uploadedPaper(err, paper) {
 					if (err) {
@@ -62,6 +64,7 @@ module.exports = {
 							'course_code' : c_cd,
 							'sem' : sem,
 							'year' : year,
+							'regno' : regno,
 							'images_url' : image_url
  						};
  						console.log(reply);
