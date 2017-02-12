@@ -78,7 +78,7 @@ module.exports = {
 			var c_cd = req.param('c_cd');
 			var year = req.param('year');
 			var sem = req.param('sem');
-			console.log('c_cd = ' + c_cd + "\nsem = " + sem + " year = " + year)
+			// console.log('c_cd = ' + c_cd + "\nsem = " + sem + " year = " + year)
 			
 			Upload.find({'c_cd' : c_cd, 'sem' : sem, 'year' : year}).limit(15).exec(function foundPaper(err, paper) {
 				if(err) {
