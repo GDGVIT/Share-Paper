@@ -21,10 +21,10 @@ module.exports = {
 				dirname : '../../.tmp/public/uploads/' + courseCode + '/' + year + '/' + sem + '/' + slot + '/' + regno,
 				maxBytes : 250000000
 			}, function whenDone(err, uploadedFiles) {
-				if(err) {
+				if(err || !uploadedFiles) {
 					var reply = {
 						'status' : 100,
-						'message' : 'error while uploading',
+						'message' : 'Please try again later.',
 						'err' : err
 					};
 					console.log("error while uploading" + err);
