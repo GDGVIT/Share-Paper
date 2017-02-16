@@ -9,9 +9,9 @@
 module.exports = {
 	'upload' : function(req, res) {
 		var regno = req.param('regno');
-		var courseCode = req.param('c_cd');
+		var courseCode = req.param('courseCode');
 		var slot = req.param('slot');
-		var noOfImages = req.param('no_of_images');
+		var noOfImages = req.param('noOfImages');
 		var sem = req.param('sem');
 		var year = req.param('year');
 		
@@ -26,7 +26,7 @@ module.exports = {
 						'status' : 100,
 						'message' : 'error while uploading'
 					};
-					console.log("error while uploading" + err)
+					console.log("error while uploading" + err);
 					res.status(200).json(reply);
 				} else {
 					var paperArray = [];
@@ -81,8 +81,8 @@ module.exports = {
 	},
 
 	'view' : function(req, res) {
-		if(req.param('c_cd') && req.param('sem') && req.param('year')) {
-			var courseCode = req.param('c_cd');
+		if(req.param('courseCode') && req.param('sem') && req.param('year')) {
+			var courseCode = req.param('courseCode');
 			var year = req.param('year');
 			var sem = req.param('sem');
 			
