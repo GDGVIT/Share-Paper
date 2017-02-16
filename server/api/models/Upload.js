@@ -18,7 +18,7 @@ module.exports = {
   		type : 'string'
   	},
   	noOfImages : {
-  		type : 'int'
+  		type : 'integer'
   	},
   	imgArr : {
   		type : 'array'
@@ -27,7 +27,7 @@ module.exports = {
   		type : 'string'
   	},
   	year : {
-  		type : 'int'
+  		type : 'integer'
   	}
   }
 };

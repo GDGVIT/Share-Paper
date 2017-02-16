@@ -18,7 +18,7 @@ module.exports = {
 		if(regno && courseCode && slot && noOfImages && sem && year) {
 			req.file('image')
 			.upload({
-				dirname : '../../.tmp/public/uploads/' + year + '/' + sem + '/' + courseCode + '/' + slot,
+				dirname : '../../.tmp/public/uploads/' + courseCode + '/' + year + '/' + sem + '/' + slot + '/' + regno,
 				maxBytes : 25000000
 			}, function whenDone(err, uploadedFiles) {
 				if(err) {
@@ -35,7 +35,7 @@ module.exports = {
 						var image = paperImage;
 						var fd = image.fd;
 						var index = fd.lastIndexOf('/');
-						paperArray.push('/uploads/' + year + '/' + 'sem' + '/' + courseCode + '/' + slot + '/' + fd.substring(index+1 , fd.length));
+						paperArray.push('/uploads/' + courseCode + '/' + year + '/' + sem + '/' + slot + '/' + regno + '/' + fd.substring(index+1 , fd.length));
 					});
 
 					Upload.create({
