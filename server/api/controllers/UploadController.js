@@ -19,7 +19,7 @@ module.exports = {
 			req.file('image')
 			.upload({
 				dirname : '../../.tmp/public/uploads/' + courseCode + '/' + year + '/' + sem + '/' + slot + '/' + regno,
-				maxBytes : 25000000
+				maxBytes : 250000000
 			}, function whenDone(err, uploadedFiles) {
 				if(err) {
 					var reply = {
