@@ -121,6 +121,34 @@ module.exports = {
 		}
 	},
 
+	'destroyPaper' : function(req, res) {
+		Upload.findOne({'regno' : regno, 'courseCode' : courseCode, 'slot' : slot, 'sem' : sem, 'year' : year}).exec(function findPaper(err, paper) {
+			if(err || !paper) {
+				var reply = {
+					'status'  : 110,
+					'message' : 'Could not find the paper'
+				};
+				res.status(200).json(reply);
+			} else {
+				Upload.destroy({'id' : paper.id}).exec(function deletePaper(err, paperDeleted) {
+					if(err || !paperDeleted) {
+						var reply = {
+							'status' : 111,
+							'message' : 'An error occured while deleting the paper'
+						};
+						res.status(200).json(reply);
+					} else {
+						var reply = {
+							'status' : 112,
+							'message' : 'Successfully deleted the paper.'
+						};
+						res.status(200).json(reply)
+					}
+				});
+			}
+		});
+	},
+
 	'viewByRegno' : function(req, res) {
 		var regno = req.param('regno');
 		Upload.find({'regno' : regno}).exec(function foundPapers(err, papers) {
