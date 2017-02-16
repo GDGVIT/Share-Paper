@@ -18,7 +18,7 @@ module.exports = {
 		if(regno && courseCode && slot && noOfImages && sem && year) {
 			req.file('image')
 			.upload({
-				dirname : '../../.tmp/public/uploads/' + courseCode + "_" + slot,
+				dirname : '../../.tmp/public/uploads/' + year + '/' + sem + '/' + courseCode + '/' + slot,
 				maxBytes : 25000000
 			}, function whenDone(err, uploadedFiles) {
 				if(err) {
@@ -29,15 +29,13 @@ module.exports = {
 					console.log("error while uploading" + err)
 					res.status(200).json(reply);
 				} else {
-					// console.log(uploadedFiles.length + " length of total no of images");
 					var paperArray = [];
 
 					_.each(uploadedFiles, function(paperImage) {
 						var image = paperImage;
 						var fd = image.fd;
 						var index = fd.lastIndexOf('/');
-						paperArray.push("/uploads/" + courseCode + "_" + slot + "/" + fd.substring(index+1 , fd.length));
-						// console.log(paperArray)
+						paperArray.push('/uploads/' + year + '/' + 'sem' + '/' + courseCode + '/' + slot + '/' + fd.substring(index+1 , fd.length));
 					});
 
 					Upload.create({
@@ -87,7 +85,6 @@ module.exports = {
 			var courseCode = req.param('c_cd');
 			var year = req.param('year');
 			var sem = req.param('sem');
-			// console.log('c_cd = ' + c_cd + "\nsem = " + sem + " year = " + year)
 			
 			Upload.find({'courseCode' : courseCode, 'sem' : sem, 'year' : year}).limit(15).exec(function foundPaper(err, papers) {
 				if(err) {
