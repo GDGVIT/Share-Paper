@@ -11,16 +11,16 @@ module.exports = {
     regno : {
       type : 'string'
     },
-  	c_cd : {
+  	courseCode : {
   		type : 'string'
   	},
   	slot : {
   		type : 'string'
   	},
-  	no_of_images : {
+  	noOfImages : {
   		type : 'int'
   	},
-  	img_arr : {
+  	imgArr : {
   		type : 'array'
   	},
   	sem : {

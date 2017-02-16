@@ -3,84 +3,93 @@
  *
  * @description :: Server-side logic for managing Uploads
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ * @author 		:: Anurag Tiwari (github.com/t2013anurag || tiwari.anurag126@gmail.com)
  */
 
 module.exports = {
 	'upload' : function(req, res) {
-		var c_cd = req.param('c_cd');
+		var regno = req.param('regno');
+		var courseCode = req.param('c_cd');
 		var slot = req.param('slot');
-		var no_of_images = req.param('no_of_images');
+		var noOfImages = req.param('no_of_images');
 		var sem = req.param('sem');
 		var year = req.param('year');
-		var regno = req.param('regno');	
 		
-		req.file('image')
-		.upload({
-			dirname : '../../.tmp/public/uploads/' + c_cd + "_" + slot,
-			maxBytes : 25000000 
-		}, function whenDone(err, uploadedFiles) {
-			if(err) {
-				var reply = {
-					'status' : 100,
-					'message' : 'error while uploading'
-				};
-				console.log("error while uploading" + err)
-				res.status(200).json(reply);
-			} else {
-				// console.log(uploadedFiles.length + " length of total no of images");
-				var image_url = [];
+		if(regno && courseCode && slot && noOfImages && sem && year) {
+			req.file('image')
+			.upload({
+				dirname : '../../.tmp/public/uploads/' + courseCode + "_" + slot,
+				maxBytes : 25000000
+			}, function whenDone(err, uploadedFiles) {
+				if(err) {
+					var reply = {
+						'status' : 100,
+						'message' : 'error while uploading'
+					};
+					console.log("error while uploading" + err)
+					res.status(200).json(reply);
+				} else {
+					// console.log(uploadedFiles.length + " length of total no of images");
+					var paperArray = [];
 
-				_.each(uploadedFiles, function(image_i) {
-					var image = image_i;
-					var fd = image.fd;
-					var index = fd.lastIndexOf('/');
-					image_url.push("/uploads/" + c_cd + "_" + slot + "/" + fd.substring(index+1 , fd.length));
-					// console.log(image_url)
-				});
+					_.each(uploadedFiles, function(paperImage) {
+						var image = paperImage;
+						var fd = image.fd;
+						var index = fd.lastIndexOf('/');
+						paperArray.push("/uploads/" + courseCode + "_" + slot + "/" + fd.substring(index+1 , fd.length));
+						// console.log(paperArray)
+					});
 
-				Upload.create({
-					'c_cd' : c_cd,
-					'slot' : slot,
-					'no_of_images' : no_of_images,
-					'sem' : sem,
-					'year' : year,
-					'regno' : regno,
-					'img_arr' : image_url
-				}, function uploadedPaper(err, paper) {
-					if (err) {
-						console.log("error in uploadedPaper");
-						var reply = {
-							'status' : 101,
-							'message' : 'Error while updating db'
-						};
-						res.status(200).json(reply);
-					} else {
-						var reply = {
-							'status' : 102,
-							'message' : 'Successfully uploaded the files',
-							'slot' : slot,
-							'course_code' : c_cd,
-							'sem' : sem,
-							'year' : year,
-							'regno' : regno,
-							'images_url' : image_url
- 						};
- 						console.log(reply);
- 						res.status(200).json(reply);
-					}
-				});
-			}
-		});
+					Upload.create({
+						'courseCode' : courseCode,
+						'slot' : slot,
+						'noOfImages' : noOfImages,
+						'sem' : sem,
+						'year' : year,
+						'regno' : regno,
+						'imgArr' : paperArray
+					}, function uploadedPaper(err, paper) {
+						if (err) {
+							console.log("error in uploadedPaper");
+							var reply = {
+								'status' : 101,
+								'message' : 'Error while updating db'
+							};
+							res.status(200).json(reply);
+						} else {
+							var reply = {
+								'status' : 102,
+								'message' : 'Successfully uploaded the files',
+								'slot' : slot,
+								'courseCode' : courseCode,
+								'sem' : sem,
+								'year' : year,
+								'regno' : regno,
+								'imgArray' : paperArray
+	 						};
+	 						console.log(reply);
+	 						res.status(200).json(reply);
+						}
+					});
+				}
+			});
+		} else {
+			var reply = {
+				'status' : 99,
+				'message' : 'Invalid parameters'
+			};
+			res.status(200).json(reply);
+		}
 	},
 
 	'view' : function(req, res) {
 		if(req.param('c_cd') && req.param('sem') && req.param('year')) {
-			var c_cd = req.param('c_cd');
+			var courseCode = req.param('c_cd');
 			var year = req.param('year');
 			var sem = req.param('sem');
 			// console.log('c_cd = ' + c_cd + "\nsem = " + sem + " year = " + year)
 			
-			Upload.find({'c_cd' : c_cd, 'sem' : sem, 'year' : year}).limit(15).exec(function foundPaper(err, paper) {
+			Upload.find({'courseCode' : courseCode, 'sem' : sem, 'year' : year}).limit(15).exec(function foundPaper(err, papers) {
 				if(err) {
 					var reply = {
 						'status' : 103,
@@ -88,17 +97,17 @@ module.exports = {
 					};
 					res.status(200).json(reply);
 				}
-				if(!paper || paper.length < 1) {
+				if(!papers || papers.length < 1) {
 					var reply = {
 						'status' : 104,
-						'message' : 'Couldn\'t not find any paper'
+						'message' : 'Couldn\'t not find any papers'
 					};
 					res.status(200).json(reply);
 				} else {
 					var reply = {
 						'status' : 105,
 						'message' : 'All papers have been fetched successfully.',
-						'paper' : paper
+						'papers' : papers
 					};
 					res.status(200).json(reply);
 				}
