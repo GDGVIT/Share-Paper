@@ -24,7 +24,8 @@ module.exports = {
 				if(err) {
 					var reply = {
 						'status' : 100,
-						'message' : 'error while uploading'
+						'message' : 'error while uploading',
+						'err' : err
 					};
 					console.log("error while uploading" + err);
 					res.status(200).json(reply);
