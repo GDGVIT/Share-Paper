@@ -14,6 +14,12 @@ module.exports = {
 		var noOfImages = req.param('noOfImages');
 		var sem = req.param('sem');
 		var year = req.param('year');
+
+		console.log("Identifying agents : ");
+		var ua = navigator.userAgent.toLowerCase();
+		console.log("ua : " + ua);
+		
+		var allowedUploadTypes = ['image/jpeg', 'image/png'];
 		
 		if(regno && courseCode && slot && noOfImages && sem && year) {
 			req.file('image')
