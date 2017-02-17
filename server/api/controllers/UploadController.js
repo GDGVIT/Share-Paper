@@ -14,8 +14,9 @@ module.exports = {
 		var noOfImages = req.param('noOfImages');
 		var sem = req.param('sem');
 		var year = req.param('year');
+		var failCount = 0;
 		
-		var allowedUploadTypes = ['jpeg', 'png'];
+		var allowedUploadTypes = ['jpeg', 'png', 'jpg'];
 		
 		if(regno && courseCode && slot && noOfImages && sem && year) {
 			req.file('image')
@@ -41,7 +42,11 @@ module.exports = {
 						if(allowedUploadTypes.indexOf(fileExtension) != -1) {
 							var index = fd.lastIndexOf('/');
 							paperArray.push('/uploads/' + courseCode + '/' + year + '/' + sem + '/' + slot + '/' + regno + '/' + fd.substring(index+1 , fd.length));						
-						} else {
+						} else {							
+							failCount += 1;
+						}
+
+						if(failCount > 0) {
 							var reply = {
 								'status' : 11001,
 								'message' : 'Only images are supported (png and jpeg)'
