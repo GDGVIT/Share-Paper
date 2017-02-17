@@ -37,7 +37,7 @@ module.exports = {
 					_.each(uploadedFiles, function(paperImage) {
 						var image = paperImage;
 						var fd = image.fd;
-						console.log(fd.split('.').pop());
+						// console.log(fd.split('.').pop());
 						var fileExtension = fd.split('.').pop();
 						if(allowedUploadTypes.indexOf(fileExtension) != -1) {
 							var index = fd.lastIndexOf('/');
@@ -45,7 +45,6 @@ module.exports = {
 						} else {							
 							failCount += 1;
 						}
-
 						if(failCount > 0) {
 							var reply = {
 								'status' : 11001,
