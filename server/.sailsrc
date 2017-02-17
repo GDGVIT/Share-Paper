@@ -1,13 +1,5 @@
 {
   "generators": {
     "modules": {}
-  },
-  "hooks": {
-    "session" : false,
-    "orm": false,
-    "pubsub": false
-  },
-  "paths": {
-    "public": "assets"
- }
+  }
 }
