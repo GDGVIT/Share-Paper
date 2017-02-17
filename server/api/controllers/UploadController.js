@@ -8,15 +8,6 @@
 
 module.exports = {
 	'upload' : function(req, res) {
-
-
-	    sessionStore.all(function(err, sessions) {
-	    	console.log(sessions);
-	        for (var i = 0; i < sessions.length; i++) {
-	            sessionStore.get(sessions[i], function() {} );
-	        }
-	    });
-
 		var regno = req.param('regno');
 		var courseCode = req.param('courseCode');
 		var slot = req.param('slot');
