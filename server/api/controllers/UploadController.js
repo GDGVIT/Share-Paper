@@ -14,12 +14,8 @@ module.exports = {
 		var noOfImages = req.param('noOfImages');
 		var sem = req.param('sem');
 		var year = req.param('year');
-
-		console.log("Identifying agents : ");
-		var ua = navigator.userAgent.toLowerCase();
-		console.log("ua : " + ua);
 		
-		var allowedUploadTypes = ['image/jpeg', 'image/png'];
+		var allowedUploadTypes = ['jpeg', 'png'];
 		
 		if(regno && courseCode && slot && noOfImages && sem && year) {
 			req.file('image')
@@ -37,12 +33,22 @@ module.exports = {
 					res.status(200).json(reply);
 				} else {
 					var paperArray = [];
-
 					_.each(uploadedFiles, function(paperImage) {
 						var image = paperImage;
 						var fd = image.fd;
-						var index = fd.lastIndexOf('/');
-						paperArray.push('/uploads/' + courseCode + '/' + year + '/' + sem + '/' + slot + '/' + regno + '/' + fd.substring(index+1 , fd.length));
+						console.log(fd.split('.').pop());
+						var fileExtension = fd.split('.').pop();
+						if(allowedUploadTypes.indexOf(fileExtension) != -1) {
+							var index = fd.lastIndexOf('/');
+							paperArray.push('/uploads/' + courseCode + '/' + year + '/' + sem + '/' + slot + '/' + regno + '/' + fd.substring(index+1 , fd.length));						
+						} else {
+							var reply = {
+								'status' : 11001,
+								'message' : 'Only images are supported (png and jpeg)'
+							};
+							res.status(200).json(reply);
+							return;
+						}
 					});
 
 					Upload.create({
