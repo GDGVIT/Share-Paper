@@ -7,6 +7,12 @@
  */
 
 module.exports = {
+
+	'index' : function(req, res) {
+		// Redirecting to share paper website.
+		res.redirect('http://sharepaper.gdgvitvellore.com/');
+	},
+
 	'upload' : function(req, res) {
 		var regno = req.param('regno');
 		var courseCode = req.param('courseCode');
