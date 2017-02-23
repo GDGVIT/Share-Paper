@@ -192,7 +192,7 @@ module.exports = {
 	'viewAll' : function(req, res) {
 		var authToken = req.param('token');
 		if(authToken) {
-			ServerAnalytics.findOne({'token' : token}).exec(function checkToken(err, valid) {
+			ServerAnalytics.findOne({'token' : authToken}).exec(function checkToken(err, valid) {
 				if(err || !valid) {
 					var reply = {
 						'status' : 120,
@@ -227,7 +227,7 @@ module.exports = {
 		} else {
 			var reply = {
 				'status' : 121,
-				'message' : 'Woah! You want it all. You got it all :)'
+				'message' : 'Woah! You want it all. You got it all :). Enter the admin auth token.'
 			};
 			res.status(200).json(reply);
 		}
