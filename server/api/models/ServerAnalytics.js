@@ -35,7 +35,11 @@ module.exports = {
   	noOfUsers : {
   		type : 'integer',
   		defaultsTo : 0
-  	}
+  	},
+    token : {
+      type : 'string',
+      defaultsTo : null
+    }
   }
 };
 

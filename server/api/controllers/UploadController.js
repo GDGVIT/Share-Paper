@@ -187,6 +187,50 @@ module.exports = {
 				res.status(200).json(reply);
 			}
 		});
+	},
+
+	'viewAll' : function(req, res) {
+		var authToken = req.param('token');
+		if(authToken) {
+			ServerAnalytics.findOne({'token' : token}).exec(function checkToken(err, valid) {
+				if(err || !valid) {
+					var reply = {
+						'status' : 120,
+						'message' : 'Token invalid.'
+					};
+					res.status(200).json(reply);
+				} else {
+					Upload.find().exec(function allPapers(err, papers) {
+						if(err || !papers) {
+							var reply = {
+								'status' : 122,
+								'message' : 'Error in finding papers.'
+							};
+							res.status(200).json(reply);
+						} else if(papers.length < 1) {
+							var reply = {
+								'status' : 123,
+								'message' : 'No papers have been uploaded yet.'
+							};
+							res.status(200).json(reply);
+						} else {
+							var reply = {
+								'status' : 124,
+								'message' : 'All papers fetched',
+								'paper' : papers
+							};
+							res.status(200).json(reply);
+						}
+					});
+				}
+			});
+		} else {
+			var reply = {
+				'status' : 121,
+				'message' : 'Woah! You want it all. You got it all :)'
+			};
+			res.status(200).json(reply);
+		}
 	}
 };
 
