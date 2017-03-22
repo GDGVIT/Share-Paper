@@ -142,6 +142,11 @@ module.exports = {
 	},
 
 	'destroyPaper' : function(req, res) {
+		var regno = req.param('regno');
+		var courseCode = req.param('courseCode');
+		var slot = req.param('slot');
+		var sem = req.param('sem');
+		var year = req.param('year');
 		Upload.findOne({'regno' : regno, 'courseCode' : courseCode, 'slot' : slot, 'sem' : sem, 'year' : year}).exec(function findPaper(err, paper) {
 			if(err || !paper) {
 				var reply = {
