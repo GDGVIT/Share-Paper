@@ -145,9 +145,11 @@ module.exports = {
 		var regno = req.param('regno');
 		var courseCode = req.param('courseCode');
 		var slot = req.param('slot');
+		slot = slot.replace(/ /g, '+');
 		var sem = req.param('sem');
 		var year = req.param('year');
 		var examType =  req.param('examType') || 'cat2'; // for current update in model || Change later
+		// console.log(regno + courseCode + slot + sem + year + examType);
 		if(regno && courseCode && slot && sem && year && examType) {
 			Upload.findOne({'regno' : regno, 'courseCode' : courseCode, 'slot' : slot, 'sem' : sem, 'year' : year, 'examType' : examType}).exec(function findPaper(err, paper) {
 				if(err || !paper) {
