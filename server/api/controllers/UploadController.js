@@ -21,6 +21,7 @@ module.exports = {
 		var sem = req.param('sem');
 		var year = req.param('year');
 		var failCount = 0;
+		var examType = req.param('examType') || 'cat2';
 		
 		var allowedUploadTypes = ['jpeg', 'png', 'jpg'];
 		
@@ -68,7 +69,8 @@ module.exports = {
 						'sem' : sem,
 						'year' : year,
 						'regno' : regno,
-						'imgArr' : paperArray
+						'imgArr' : paperArray,
+						'examType' : examType
 					}, function uploadedPaper(err, paper) {
 						if (err) {
 							console.log("error in uploadedPaper");
@@ -86,7 +88,8 @@ module.exports = {
 								'sem' : sem,
 								'year' : year,
 								'regno' : regno,
-								'imgArray' : paperArray
+								'imgArray' : paperArray,
+								'examType' : examType
 	 						};
 	 						console.log(reply);
 	 						res.status(200).json(reply);
