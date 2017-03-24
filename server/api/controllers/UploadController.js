@@ -147,31 +147,40 @@ module.exports = {
 		var slot = req.param('slot');
 		var sem = req.param('sem');
 		var year = req.param('year');
-		Upload.findOne({'regno' : regno, 'courseCode' : courseCode, 'slot' : slot, 'sem' : sem, 'year' : year}).exec(function findPaper(err, paper) {
-			if(err || !paper) {
-				var reply = {
-					'status'  : 110,
-					'message' : 'Could not find the paper'
-				};
-				res.status(200).json(reply);
-			} else {
-				Upload.destroy({'id' : paper.id}).exec(function deletePaper(err, paperDeleted) {
-					if(err || !paperDeleted) {
-						var reply = {
-							'status' : 111,
-							'message' : 'An error occured while deleting the paper'
-						};
-						res.status(200).json(reply);
-					} else {
-						var reply = {
-							'status' : 112,
-							'message' : 'Successfully deleted the paper.'
-						};
-						res.status(200).json(reply)
-					}
-				});
-			}
-		});
+		var type = 'cat2';
+		if(regno && courseCode && slot && sem && year && type) {
+			Upload.findOne({'regno' : regno, 'courseCode' : courseCode, 'slot' : slot, 'sem' : sem, 'year' : year}).exec(function findPaper(err, paper) {
+				if(err || !paper) {
+					var reply = {
+						'status'  : 110,
+						'message' : 'Could not find the paper'
+					};
+					res.status(200).json(reply);
+				} else {
+					Upload.destroy({'id' : paper.id}).exec(function deletePaper(err, paperDeleted) {
+						if(err || !paperDeleted) {
+							var reply = {
+								'status' : 111,
+								'message' : 'An error occured while deleting the paper'
+							};
+							res.status(200).json(reply);
+						} else {
+							var reply = {
+								'status' : 112,
+								'message' : 'Successfully deleted the paper.'
+							};
+							res.status(200).json(reply)
+						}
+					});
+				}
+			});
+		} else {
+			var reply = {
+				'status' : 121,
+				'message' : 'Please send all the params.'
+			};
+			res.status(200).json(reply);
+		}
 	},
 
 	'viewByRegno' : function(req, res) {
