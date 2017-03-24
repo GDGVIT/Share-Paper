@@ -147,9 +147,9 @@ module.exports = {
 		var slot = req.param('slot');
 		var sem = req.param('sem');
 		var year = req.param('year');
-		var type = 'cat2';
-		if(regno && courseCode && slot && sem && year && type) {
-			Upload.findOne({'regno' : regno, 'courseCode' : courseCode, 'slot' : slot, 'sem' : sem, 'year' : year}).exec(function findPaper(err, paper) {
+		var examType =  req.param('examType') || 'cat2'; // for current update in model || Change later
+		if(regno && courseCode && slot && sem && year && examType) {
+			Upload.findOne({'regno' : regno, 'courseCode' : courseCode, 'slot' : slot, 'sem' : sem, 'year' : year, 'examType' : examType}).exec(function findPaper(err, paper) {
 				if(err || !paper) {
 					var reply = {
 						'status'  : 110,

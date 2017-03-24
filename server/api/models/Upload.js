@@ -28,7 +28,10 @@ module.exports = {
   	},
   	year : {
   		type : 'integer'
-  	}
+  	},
+    examType : {
+      type : 'string'
+    }
   }
 };
 
