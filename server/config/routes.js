@@ -36,10 +36,6 @@ module.exports.routes = {
     controller: 'UploadController',
     action: 'index'
   },
-  '/paymentgateway/index' : {
-    view : 'paymentgateway/index'
-  }
-
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
